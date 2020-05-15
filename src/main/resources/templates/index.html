@@ -5,6 +5,18 @@
     <title>Index Page</title>
 </head>
 <body>
-<h2>Pet Recipe!!</h2>
+<h2>My Recipe!!</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}">124</td>
+        <td th:text="${recipe.description}">Description</td>
+    </tr>
+</table>
 </body>
 </html>
