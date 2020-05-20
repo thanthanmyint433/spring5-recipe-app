@@ -36,12 +36,12 @@ public class IngredientControllerTest {
 
     MockMvc mockMvc;
 
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
-        mockMvc =MockMvcBuilders.standaloneSetup(controller).build();
+
+        controller = new IngredientController(ingredientService, recipeService, unitOfMeasureService);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
@@ -110,6 +110,27 @@ public class IngredientControllerTest {
                 .param("description", "some string"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
+
+    }
+
+    @Test
+    public void testNewIngredientForm() throws Exception {
+        //given
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        //when
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+        when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
+
+        //then
+        mockMvc.perform(get("/recipe/1/ingredient/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/ingredientform"))
+                .andExpect(model().attributeExists("ingredient"))
+                .andExpect(model().attributeExists("uomList"));
+
+        verify(recipeService, times(1)).findCommandById(anyLong());
 
     }
 }
