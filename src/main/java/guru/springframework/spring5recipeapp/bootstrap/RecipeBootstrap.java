@@ -36,7 +36,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
             log.debug("Loading Bootstrap Data...");
         }
 
-        private List<Recipe> getRecipes() {List<Recipe> recipes = new ArrayList<>(2);
+        private List<Recipe> getRecipes() {
+            List<Recipe> recipes = new ArrayList<>(2);
 
             //get UOMs
             Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
