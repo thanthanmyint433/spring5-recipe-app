@@ -43,7 +43,8 @@
                                 </ul>
                             </div>
                             <div class="col-md-6">
-                                <img src="../../static/images/greentea.jpg" th:src="@{/images/greentea.jpg}" width="300" height="200">
+                                <img src="../../static/images/greentea.jpg"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}" width="300" height="200">
                             </div>
                         </div>
                         <div class="row">
